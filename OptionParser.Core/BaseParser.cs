@@ -1,4 +1,7 @@
-﻿using System;
+﻿using log4net;
+using log4net.Util;
+using OptionParser.Core.Domain.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +9,39 @@ using System.Threading.Tasks;
 
 namespace OptionParser.Core
 {
-    public abstract class BaseParser
+    public abstract class BaseParser<T>
     {
+        ILog logger;
+        ICSVExporter<T> exporter;
+        HttpClient client;
+        string site;
+      
+        public BaseParser(ILog log, ICSVExporter<T> exporter, HttpClient client, string site)
+        {
+            this.logger = log;
+            this.exporter = exporter;
+            this.client = client;
+            this.site = site;
+        }
+
+        public async Task Run(string outputDirectory)
+        {
+            try
+            {
+                logger.Info("Start parsing into " +  outputDirectory);
+                var records = await ParseAllPages();
+                string filename = $"{this.site}_{DateTime.Now:dd_mm_YYYY}.csv";
+                exporter.ExportToCSV(records, filename);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Unexpected behavior", ex);
+            }
+            finally
+            {
+                logger.Info("Parsing finished");
+            }
+        }
+        public abstract Task<IEnumerable<T>> ParseAllPages();
     }
 }
