@@ -10,6 +10,9 @@ namespace OptionParser.WienerBorse.Models
     {
         public string Name { get; set; }
         public string Last { get; set; }
+
+        public string ChangePercent { get; set; }
+        public string ChangeAbsolute { get; set; }
         public string DateTime { get; set; }
         public string ISIN { get; set; }
         public string BidVolume { get; set; }

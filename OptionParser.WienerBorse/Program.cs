@@ -6,14 +6,19 @@ using OptionParser.WienerBorse;
 using OptionParser.WienerBorse.Models;
 using System.Numerics;
 
+log4net.Util.LogLog.InternalDebugging = true;
 
-var config = new FileInfo("logging.config");
+string basePath = AppDomain.CurrentDomain.BaseDirectory;
+string configPath = Path.Combine(basePath, "logging.config");
+
+
+var config = new FileInfo(configPath);
 
 log4net.Config.XmlConfigurator.Configure(config);
 
 ILog logger = LogManager.GetLogger("WienerBorse");
 
-logger.Info($"Start parsing at {DateTime.Now:dd.mm.YYYY}");
+logger.Info($"Start parsing at {DateTime.Now:dd.MM.YYYY}");
 
 var services = new ServiceCollection();
 
@@ -31,5 +36,18 @@ var parser = serviceProvider.GetRequiredService<WienerBorseParser>();
 
 Console.WriteLine($"Целевой сайт: {parser.site} [url: {WienerBorseParser.SiteUrl}]");
 
+Console.Write("Введите директорию для сохранения файлов (например, ./Output для сохранения в директорию исполняемого файла оставьте пустой): ");
+var outputDir = Console.ReadLine();
 
-logger.Info($"End parsing at {DateTime.Now:dd.mm.YYYY}");
+if (string.IsNullOrWhiteSpace(outputDir))
+{
+    outputDir = "./";
+}
+
+Console.WriteLine("Начало парсинга...");
+
+await parser.Run(outputDir);
+
+Console.WriteLine("Парсинг завершился.");
+
+logger.Info($"End parsing at {DateTime.Now:dd.MM.YYYY}");

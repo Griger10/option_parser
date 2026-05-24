@@ -11,9 +11,9 @@ namespace OptionParser.Core
 {
     public abstract class BaseParser<T>
     {
-        ILog logger;
-        ICSVExporter<T> exporter;
-        HttpClient client;
+        protected ILog logger;
+        protected ICSVExporter<T> exporter;
+        protected HttpClient client;
         public string site;
       
         public BaseParser(ILog log, ICSVExporter<T> exporter, HttpClient client, string site)
