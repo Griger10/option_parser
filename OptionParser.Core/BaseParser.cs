@@ -14,7 +14,7 @@ namespace OptionParser.Core
         ILog logger;
         ICSVExporter<T> exporter;
         HttpClient client;
-        string site;
+        public string site;
       
         public BaseParser(ILog log, ICSVExporter<T> exporter, HttpClient client, string site)
         {
@@ -30,12 +30,14 @@ namespace OptionParser.Core
             {
                 logger.Info("Start parsing into " +  outputDirectory);
                 var records = await ParseAllPages();
-                string filename = $"{this.site}_{DateTime.Now:dd_mm_YYYY}.csv";
-                exporter.ExportToCSV(records, filename);
+                string filename = $"{this.site}_{DateTime.Now:dd_MM_YYYY}.csv";
+                string fullPath = Path.Combine(outputDirectory, filename);
+                exporter.ExportToCSV(records, fullPath);
             }
             catch (Exception ex)
             {
                 logger.Error("Unexpected behavior", ex);
+                throw;
             }
             finally
             {
