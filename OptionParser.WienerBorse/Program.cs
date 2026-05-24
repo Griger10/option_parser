@@ -5,6 +5,7 @@ using OptionParser.Core.Exporters;
 using OptionParser.WienerBorse;
 using OptionParser.WienerBorse.Models;
 using System.Numerics;
+using System.Reflection;
 
 log4net.Util.LogLog.InternalDebugging = true;
 
@@ -14,11 +15,11 @@ string configPath = Path.Combine(basePath, "logging.config");
 
 var config = new FileInfo(configPath);
 
-log4net.Config.XmlConfigurator.Configure(config);
+log4net.Config.XmlConfigurator.Configure( config);
 
 ILog logger = LogManager.GetLogger("WienerBorse");
 
-logger.Info($"Start parsing at {DateTime.Now:dd.MM.YYYY}");
+logger.Info($"Start parsing at {DateTime.Now:dd.MM.yyyy}");
 
 var services = new ServiceCollection();
 
@@ -50,4 +51,4 @@ await parser.Run(outputDir);
 
 Console.WriteLine("Парсинг завершился.");
 
-logger.Info($"End parsing at {DateTime.Now:dd.MM.YYYY}");
+logger.Info($"End parsing at {DateTime.Now:dd.MM.yyyy}");

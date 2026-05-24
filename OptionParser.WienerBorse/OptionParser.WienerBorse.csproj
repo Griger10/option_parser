@@ -23,9 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="logging.config">
+    <Content Include="logging.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </Content>
   </ItemGroup>
 
 </Project>
