@@ -15,7 +15,7 @@ string configPath = Path.Combine(basePath, "logging.config");
 
 var config = new FileInfo(configPath);
 
-log4net.Config.XmlConfigurator.Configure( config);
+log4net.Config.XmlConfigurator.Configure(config);
 
 ILog logger = LogManager.GetLogger("WienerBorse");
 
@@ -35,6 +35,10 @@ var serviceProvider = services.BuildServiceProvider();
 
 var parser = serviceProvider.GetRequiredService<WienerBorseParser>();
 
+Console.WriteLine("---------------------------------------------------------");
+
+Console.WriteLine("Логи сохраняются в директорию Logs в каталоге исполняемого файла.");
+
 Console.WriteLine($"Целевой сайт: {parser.site} [url: {WienerBorseParser.SiteUrl}]");
 
 Console.Write("Введите директорию для сохранения файлов (например, ./Output для сохранения в директорию исполняемого файла оставьте пустой): ");
@@ -50,5 +54,6 @@ Console.WriteLine("Начало парсинга...");
 await parser.Run(outputDir);
 
 Console.WriteLine("Парсинг завершился.");
+Console.WriteLine("---------------------------------------------------------");
 
 logger.Info($"End parsing at {DateTime.Now:dd.MM.yyyy}");
