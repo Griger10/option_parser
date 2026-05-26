@@ -67,3 +67,5 @@ Console.WriteLine("Парсинг завершен.");
 Console.WriteLine("---------------------------------------------------------");
 
 logger.Info($"Program finished at {DateTime.Now:dd.MM.yyyy HH:mm}");
+
+Console.ReadKey();
