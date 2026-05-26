@@ -50,7 +50,15 @@ if (string.IsNullOrWhiteSpace(outputDir))
 
 Console.WriteLine("Начало парсинга...");
 
-await parser.Run(outputDir);
+try
+{
+    await parser.Run(outputDir);
+}
+catch
+{
+    logger.Error("Critical error during parsing, check logs");
+    Environment.Exit(1);
+}
 
 var totalTime = DateTime.Now - start;
 

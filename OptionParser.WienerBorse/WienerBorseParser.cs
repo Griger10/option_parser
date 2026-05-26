@@ -106,7 +106,7 @@ namespace OptionParser.WienerBorse
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("Что-то окончательно пошло не так: ", ex.Message);
+                        Console.WriteLine("Что-то окончательно пошло не так (см. логи)");
                         logger.Error("Unhandled exception: ", ex);
                         throw;
                     }

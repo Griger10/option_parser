@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace OptionParser.JSE.Models
@@ -18,5 +19,26 @@ namespace OptionParser.JSE.Models
         public string Vol { get; set; }
         public string Premium { get; set; }
         public string FuturesPrice { get; set; }
+    }
+
+
+    public class RootDTO
+    {
+        [JsonPropertyName("GetTradeOptionsResult")]
+        public List<ParsedItemDTO> GetTradeOptionsResult { get; set; }
+    }
+
+    public class ParsedItemDTO
+    {
+        public object ShortName { get; set; }
+        public object TradeDate { get; set; }
+        public object TradeType { get; set; }
+        public object FutureExpiry { get; set; }
+        public object Strike { get; set; }
+        public object CallPut { get; set; }
+        public object Quantity { get; set; }
+        public object Vol { get; set; }
+        public object Premium { get; set; }
+        public object FuturesPrice { get; set; }
     }
 }
