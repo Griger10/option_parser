@@ -7,11 +7,10 @@ using OptionParser.WienerBorse.Models;
 using System.Numerics;
 using System.Reflection;
 
-log4net.Util.LogLog.InternalDebugging = true;
-
 string basePath = AppDomain.CurrentDomain.BaseDirectory;
 string configPath = Path.Combine(basePath, "logging.config");
 
+var start = DateTime.Now;
 
 var config = new FileInfo(configPath);
 
@@ -19,7 +18,7 @@ log4net.Config.XmlConfigurator.Configure(config);
 
 ILog logger = LogManager.GetLogger("WienerBorse");
 
-logger.Info($"Start parsing at {DateTime.Now:dd.MM.yyyy}");
+logger.Info($"Program launched at {DateTime.Now:dd.MM.yyyy HH:mm}");
 
 var services = new ServiceCollection();
 
@@ -41,7 +40,7 @@ Console.WriteLine("Логи сохраняются в директорию Logs 
 
 Console.WriteLine($"Целевой сайт: {parser.site} [url: {WienerBorseParser.SiteUrl}]");
 
-Console.Write("Введите директорию для сохранения файлов (например, ./Output для сохранения в директорию исполняемого файла оставьте пустой): ");
+Console.Write("Введите директорию сохранения файлов (для сохранения в директорию исполняемого файла оставьте пустой): ");
 var outputDir = Console.ReadLine();
 
 if (string.IsNullOrWhiteSpace(outputDir))
@@ -53,7 +52,10 @@ Console.WriteLine("Начало парсинга...");
 
 await parser.Run(outputDir);
 
-Console.WriteLine("Парсинг завершился.");
+var totalTime = DateTime.Now - start;
+
+Console.WriteLine($"Затрачено времени: {totalTime:mm\\:ss}");
+Console.WriteLine("Парсинг завершен.");
 Console.WriteLine("---------------------------------------------------------");
 
-logger.Info($"End parsing at {DateTime.Now:dd.MM.yyyy}");
+logger.Info($"Program finished at {DateTime.Now:dd.MM.yyyy HH:mm}");

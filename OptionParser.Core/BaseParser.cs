@@ -30,7 +30,7 @@ namespace OptionParser.Core
             {
                 logger.Info("Start parsing into " +  outputDirectory);
                 var records = await ParseAllPages();
-                string filename = $"{this.site}_{DateTime.Now:dd_MM_yyyy}.csv";
+                string filename = $"{this.site}_{DateTime.Now:dd_MM_yyyy_HH_mm}.csv";
                 string fullPath = Path.Combine(outputDirectory, filename);
                 exporter.ExportToCSV(records, fullPath);
             }
