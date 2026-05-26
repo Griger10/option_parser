@@ -15,7 +15,7 @@ namespace OptionParser.Core
         protected ICSVExporter<T> exporter;
         protected HttpClient client;
         public string site;
-      
+
         public BaseParser(ILog log, ICSVExporter<T> exporter, HttpClient client, string site)
         {
             this.logger = log;
@@ -28,7 +28,7 @@ namespace OptionParser.Core
         {
             try
             {
-                logger.Info("Start parsing into " +  outputDirectory);
+                logger.Info("Start parsing into " + outputDirectory);
                 var records = await ParseAllPages();
                 string filename = $"{this.site}_{DateTime.Now:dd_MM_yyyy_HH_mm}.csv";
                 string fullPath = Path.Combine(outputDirectory, filename);

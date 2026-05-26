@@ -10,7 +10,7 @@ namespace OptionParser.Core.Exporters
 {
     public class CSVExporter<T> : ICSVExporter<T>
     {
-        public void ExportToCSV(IEnumerable<T> parsedItems, string filename) 
+        public void ExportToCSV(IEnumerable<T> parsedItems, string filename)
         {
             using var writer = new StreamWriter(filename);
 

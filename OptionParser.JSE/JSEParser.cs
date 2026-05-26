@@ -15,13 +15,14 @@ using System.Threading.Tasks;
 
 namespace OptionParser.JSE
 {
-    public class JSEParser: BaseParser<ParsedItem>
+    public class JSEParser : BaseParser<ParsedItem>
     {
         public const string SiteUrl = "https://clientportal.jse.co.za/reports/delta-option-and-structured-option-trades";
         public const string ApiUrl = "https://clientportal.jse.co.za/_vti_bin/JSE/DerivativesService.svc/GetTradeOptions";
         public const int RetryCount = 3;
-        public JSEParser(ILog logger, ICSVExporter<ParsedItem> exporter, HttpClient client): 
-            base(logger, exporter, client, "JSE") { }
+        public JSEParser(ILog logger, ICSVExporter<ParsedItem> exporter, HttpClient client) :
+            base(logger, exporter, client, "JSE")
+        { }
 
         public override async Task<IEnumerable<ParsedItem>> ParseAllPages()
         {
